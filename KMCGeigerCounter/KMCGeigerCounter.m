@@ -271,7 +271,9 @@ static NSTimeInterval const kNormalFrameDuration = 1.0 / kHardwareFramesPerSecon
 {
     if (_enabled != enabled) {
         if (enabled) {
-            [self enable];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self enable];
+            });
         } else {
             [self disable];
         }
